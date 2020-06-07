@@ -713,6 +713,20 @@ void wifi_dns_found_callback(const char *name, CONST ip_addr_t *ipaddr, void *ca
     esp_schedule(); // break delay in hostByName
 }
 
+void setDNS(IPAddress& dns_server1)
+{
+    ip_addr_t dns1 = { .addr = (uint32_t)dns_server1 };
+    espconn_dns_setserver(0, &dns1);
+}
+
+void setDNS(IPAddress& dns_server1, IPAddress& dns_server2)
+{
+    ip_addr_t dns1 = { .addr = (uint32_t)dns_server1 };
+    espconn_dns_setserver(0, &dns1);
+    ip_addr_t dns2 = { .addr = (uint32_t)dns_server2 };
+    espconn_dns_setserver(0, &dns2);
+}
+
 uint32_t ESP8266WiFiGenericClass::shutdownCRC (const WiFiState* state)
 {
     return state? crc32(&state->state, sizeof(state->state)): 0;
